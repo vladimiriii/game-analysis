@@ -1,0 +1,40 @@
+/* Presentation Styling Adjustments */
+
+body {
+    background-color: #F8F8F8;
+}
+
+.chart-div {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    align: center;
+}
+
+.highcharts-container {
+    margin: 0 auto;
+}
+
+.reveal p {
+    font-size: 30px;
+}
+
+.reveal li {
+    font-size: 30px;
+}
+
+.reveal h3 {
+    font-size: 55px;
+}
+
+.reveal th {
+    font-size: 30px;
+}
+
+.reveal td {
+    font-size: 30px;
+}
+
+ .reveal .numeric-col {
+     text-align: right;
+ }

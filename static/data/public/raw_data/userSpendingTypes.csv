@@ -1,0 +1,19 @@
+,category,device,users,revenue
+0,1 purchase,ANDROID,609,609
+1,1 purchase,FIREOS,63,63
+2,1 purchase,IOS,983,983
+3,10+ Purchases,ANDROID,120,2255
+4,10+ Purchases,FIREOS,7,129
+5,10+ Purchases,IOS,220,5353
+6,2-3 Purchases,ANDROID,339,806
+7,2-3 Purchases,FIREOS,29,65
+8,2-3 Purchases,IOS,434,1045
+9,4-5 Purchases,ANDROID,152,676
+10,4-5 Purchases,FIREOS,18,80
+11,4-5 Purchases,IOS,230,1016
+12,6-7 Purchases,ANDROID,75,483
+13,6-7 Purchases,FIREOS,4,26
+14,6-7 Purchases,IOS,117,752
+15,8-9 Purchases,ANDROID,51,434
+16,8-9 Purchases,FIREOS,3,25
+17,8-9 Purchases,IOS,75,637

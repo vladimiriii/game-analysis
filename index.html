@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tactile Presentation</title>
+
+	<!-- Encoding -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- jQuery plugin -->
+    <script type="text/javascript" src="./static/script/jquery/jquery-3.1.1.min.js"></script>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="./static/style/bootstrap.min.css">
+    <script type="text/javascript" src="./static/script/other/bootstrap.min.js"></script>
+
+    <!-- Highcharts -->
+    <script type="text/javascript" src="./static/script/highcharts/highcharts.js"></script>
+
+    <link rel="stylesheet" href="./static/style/reveal.css">
+	<link rel="stylesheet" href="./static/style/solarized.css">
+
+	<!-- Font-awesome for sharing buttons -->
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" >
+
+	<!-- Internal CSS -->
+    <link rel="stylesheet" type="text/css" href="./static/style/index.css">
+
+    <!-- Data -->
+    <script src="./static/script/custom/presentation.js"></script>
+    <script src="./static/data/public/page_data/dailyInstallData.js"></script>
+    <script src="./static/data/public/page_data/installsByCountry.js"></script>
+    <script src="./static/data/public/page_data/dailyActiveUsers.js"></script>
+    <script src="./static/data/public/page_data/dayNRetentionAny.js"></script>
+    <script src="./static/data/public/page_data/dayNRetentionInstall.js"></script>
+    <script src="./static/data/public/page_data/moreThanADay.js"></script>
+    <script src="./static/data/public/page_data/dailyRounds.js"></script>
+    <script src="./static/data/public/page_data/purchasesOverTime.js"></script>
+    <script src="./static/data/public/page_data/revenuePerUser.js"></script>
+    <script src="./static/data/public/page_data/revenuePerInstall.js"></script>
+    <script src="./static/data/public/page_data/spendingTypes.js"></script>
+    <script src="./static/data/public/page_data/levelStats.js"></script>
+    <script src="./static/data/public/page_data/coinEconomy.js"></script>
+    <script src="./static/data/public/page_data/campaignData.js"></script>
+
+</head>
+<body>
+    <div class="reveal">
+			<div class="slides">
+				<section>
+                    <h1>Tactile</h1>
+                    <h3>New Game Analysis</h3>
+                </section>
+				<section>
+                    <h3>Overview</h3>
+                    <p>We'll be looking at a range of statistics that will help us understand how the game performed over the first month after release. This will include:</p>
+                    <ol>
+                        <li><strong>Business Indicators</strong> - Installs, engagement, retention, in-app purchases</li>
+                        <li><strong>Game Structure</strong> - Level difficulties, user drop-off, which levels led to conversions, and the game economy</li>
+                        <li><strong>Marketing</strong> - Performance of the different marketing campaigns</li>
+                    </ol>
+                </section>
+                <section>
+                    <h2>Business Indicators</h2>
+                </section>
+                <section>
+                    <section>
+                        <h3>Installs over time</h3>
+                        <p>As measured by newPlayer events, there was a total of 102,392 installs over the 31 days.</p>
+                        <div class="chart-div" id="dailyInstalls"></div>
+                    </section>
+                    <section>
+                        <h3>Installs by Country</h3>
+                        <p>The following chart shows the top 20 countries in terms of installations.</p>
+                        <div class="chart-div" id="installsByCountry"></div>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>Engagement - Daily Active Users</h3>
+                        <p>Number of users that recorded any event on a given day.</p>
+                        <div class="chart-div" id="dailyActiveUsers"></div>
+                    </section>
+                    <section>
+                        <h3>Engagement - DAU/MAU</h3>
+                        <p>The ratio of Daily Active Users to Monthly Active Users (MAU) shows how well an app retains users. DAU/MAU for February 2006 was:</p>
+                        <p>Average DAU: 18,879</p>
+                        <p>February MAU: 96,339</p>
+                        <p>DAU/MAU ratio: 19.6%</p>
+                        <br>
+                        <p>Most successful games have DAU/MAU ratios of around 20%.
+                    </section>
+                    <section>
+                        <h3>Engagement - Daily Rounds</h3>
+                        <p>Number of times the average user is opening the app on a daily basis.</p>
+                        <div class="chart-div" id="dailyRounds"></div>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>Retention - Day N Retention</h3>
+                        <p>Number of users that created <strong>any event</strong> on Day 0 and then recorded another event on Day X.</p>
+                        <div class="chart-div" id="dayNRetentionAny"></div>
+                    </section>
+                    <section>
+                        <h3>Retention - Day N Retention</h3>
+                        <p>Number of users that <strong>installed</strong> the game on Day 0 and then recorded an event on Day X.</p>
+                        <div class="chart-div" id="dayNRetentionInstall"></div>
+                    </section>
+                    <section>
+                        <h3>Retention - Played for more than a day</h3>
+                        <p>What percentage of users played the game for more than one day.</p>
+                        <div class="chart-div" id="moreThanADay"></div>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>In-App Purchases over time</h3>
+                        <p>Total in-app purchases over time.</p>
+                        <div class="chart-div" id="purchasesOverTime"></div>
+                    </section>
+                    <section>
+                        <h3>Revenue Per Daily Active User/Paying User</h3>
+                        <p>Revenue per Daily Active User (ARPDAU), and per Paying User (ARPPU).</p>
+                        <div class="chart-div" id="revenuePerUser"></div>
+                    </section>
+                    <section>
+                        <h3>Spending Types</h3>
+                        <p>For users who have made a purchase, how many purchases are they making?</p>
+                        <div class="chart-div" id="spendingTypesUsers"></div>
+                    </section>
+                    <section>
+                        <h3>Spending Types</h3>
+                        <p>How much revenue is being created by each category of users?</p>
+                        <div class="chart-div" id="spendingTypesRevenue"></div>
+                    </section>
+                    <section>
+                        <h3>Top Countries</h3>
+                        <p>Countries generating the most revenue.</p>
+                        <div class="chart-div" id="revenueByCountry"></div>
+                    </section>
+                    <section>
+                        <h3>Top and Bottom Countries - Normalized</h3>
+                        <p>Highest and lowest countries for revenue per install.</p>
+                        <div class="chart-div" id="revenuePerInstall"></div>
+                    </section>
+                </section>
+                <section>
+                    <h2>Game Structure</h2>
+                </section>
+                <section>
+                    <section>
+                        <h3>Level Difficulties</h3>
+                        <p>Which levels are the most difficult (most failed attempts)?</p>
+                        <div class="chart-div" id="mostFailed"></div>
+                    </section>
+                    <section>
+                        <h3>Player Drop-Off</h3>
+                        <p>Which levels cause the most players to give-up (next level never attempted)?</p>
+                        <div class="chart-div" id="biggestDropOff"></div>
+                    </section>
+                    <section>
+                        <h3>Player Drop-Off by Level</h3>
+                        <p>What does user drop-off look like over the first 100 levels?</p>
+                        <div class="chart-div" id="dropOffByLevel"></div>
+                    </section>
+                    <section>
+                        <h3>Encouraging Conversions</h3>
+                        <p>Which levels are leading to users' first purchases?</p>
+                        <div class="chart-div" id="firstPurchases"></div>
+                    </section>
+                    <section>
+                        <h3>Coin economy over time</h3>
+                        <p>What is the net balance of coins (coins received - coins used) each day?</p>
+                        <div class="chart-div" id="coinEconomy"></div>
+                    </section>
+                </section>
+                <section>
+                    <h2>Marketing</h2>
+                </section>
+                <section>
+                    <section>
+                        <h3>Campaign Summary</h3>
+                        <table>
+                            <tr>
+                                <th>User Type</th>
+                                <th class="numeric-col">Users</th>
+                                <th class="numeric-col">Revenue</th>
+                                <th class="numeric-col">Revenue per User</th>
+                            </tr>
+                            <tr>
+                                <td>Campaign</td>
+                                <td class="numeric-col">25,024</td>
+                                <td class="numeric-col">8,775</td>
+                                <td class="numeric-col">0.35</td>
+                            </tr>
+                            <tr>
+                                <td>No Campaign</td>
+                                <td class="numeric-col">74,935</td>
+                                <td class="numeric-col">6,662</td>
+                                <td class="numeric-col">0.09</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td class="numeric-col">99,959</td>
+                                <td class="numeric-col">15,437</td>
+                                <td class="numeric-col">0.15</td>
+                            </tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>Most Profitable Campaigns</h3>
+                        <p>Campaigns that produced the most revenue.</p>
+                        <div class="chart-div" id="topCampaigns"></div>
+                    </section>
+                    <section>
+                        <h3>Case Study 1</h3>
+                        <p><strong>Campaign ID:</strong> 9s5vVew1HvRvFU+l8FHarl/rh1WBtudlUUe+K5CuudM=</p>
+                        <p><strong>New users:</strong> 1,784</p>
+                        <p><strong>Revenue created:</strong> 1,065</p>
+                        <p><strong>Device used:</strong> Primarily IOS (1,772 of 1,784)</p>
+                        <p><strong>Country of origin:</strong> Users come from most developed countries</p>
+                        <p>Appears to be a successful campaign. Attracted a large number of users, with 218 (or 12.2%) of those those users going on to make in-app purchases.
+                    </section>
+                    <section>
+                        <h3>Case Study 2</h3>
+                        <p><strong>Campaign ID:</strong> 4EPzfhaYBdO1groLb/JBb6j0OAV2bqxyn8fUBBeZ6HM=</p>
+                        <p><strong>New users:</strong> 215</p>
+                        <p><strong>Revenue created:</strong> 577</p>
+                        <p><strong>Device used:</strong> IOS</p>
+                        <p><strong>Country of origin:</strong> United Kingdom (212 or 215)</p>
+                        <p>Appears to be a very positive campaign, but in fact, only 5 of the 215 users were paying users. It just happens that one of those users generated 573 of the 577 revenue.</p>
+                    </section>
+                </section>
+                <section>
+                    <h2>Wrapping Up</h2>
+                </section>
+                <section>
+                    <h3>Key Takeaways</h3>
+                    <ol>
+                        <li>New installations are slowly declining, but Daily Active Users are increasing (particularly for Android)</li>
+                        <li>Rentention is strong and looks to be holding, but should be monitored</li>
+                        <li>Revenue from in-app purchases and ARPDAU are increasing</li>
+                        <li>Harder levels (e.g. Levels 30 and 56) are causing users to leave, but are also driving in-app purchases</li>
+                        <li>Marketing campaigns have had mixed results, but on a whole have been successful in driving revenue</li>
+                    </ol>
+                </section>
+			</div>
+		</div>
+		<script src="./static/script/other/reveal.js"></script>
+		<script>
+			Reveal.initialize({
+                width: "100%",
+	            height: "100%",
+	            margin: 0.1,
+                minScale: 1,
+                maxScale: 1
+            });
+		</script>
+</body>
+</html>
