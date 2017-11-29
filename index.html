@@ -41,7 +41,9 @@
     <script src="./static/data/public/page_data/spendingTypes.js"></script>
     <script src="./static/data/public/page_data/levelStats.js"></script>
     <script src="./static/data/public/page_data/coinEconomy.js"></script>
+    <script src="./static/data/public/page_data/modelResults.js"></script>
     <script src="./static/data/public/page_data/campaignData.js"></script>
+    <script src="./static/data/public/page_data/missionStats.js"></script>
 
 </head>
 <body>
@@ -56,7 +58,7 @@
                     <p>We'll be looking at a range of statistics that will help us understand how the game performed over the first month after release. This will include:</p>
                     <ol>
                         <li><strong>Business Indicators</strong> - Installs, engagement, retention, in-app purchases</li>
-                        <li><strong>Game Structure</strong> - Level difficulties, user drop-off, which levels led to conversions, and the game economy</li>
+                        <li><strong>Game Structure</strong> - Version changes, level difficulties, user drop-off, which levels led to conversions, and the game economy</li>
                         <li><strong>Marketing</strong> - Performance of the different marketing campaigns</li>
                     </ol>
                 </section>
@@ -99,13 +101,23 @@
                 <section>
                     <section>
                         <h3>Retention - Day N Retention</h3>
-                        <p>Number of users that created <strong>any event</strong> on Day 0 and then recorded another event on Day X.</p>
-                        <div class="chart-div" id="dayNRetentionAny"></div>
+                        <p>Number of users that installed the game on Day 0 and then recorded an event on Day X.</p>
+                        <div class="chart-div" id="dayNRetentionInstall"></div>
                     </section>
                     <section>
-                        <h3>Retention - Day N Retention</h3>
-                        <p>Number of users that <strong>installed</strong> the game on Day 0 and then recorded an event on Day X.</p>
-                        <div class="chart-div" id="dayNRetentionInstall"></div>
+                        <h3>Retention - Day N Retention - All Devices</h3>
+                        <p>Number of users that installed the game on Day 0 and then recorded an event on Day X.</p>
+                        <img src="./static/img/cohort_all.jpg">
+                    </section>
+                    <section>
+                        <h3>Retention - Day N Retention - WebGL</h3>
+                        <p>Number of <strong>WebGL</strong> users that installed the game on Day 0 and then recorded an event on Day X.</p>
+                        <img src="./static/img/cohort_webgl.jpg">
+                    </section>
+                    <section>
+                        <h3>Retention - Day N Retention - All Except WebGL</h3>
+                        <p>Number of <strong>non-WebGL</strong> users that installed the game on Day 0 and then recorded an event on Day X.</p>
+                        <img src="./static/img/cohort_except.jpg">
                     </section>
                     <section>
                         <h3>Retention - Played for more than a day</h3>
@@ -147,6 +159,23 @@
                 </section>
                 <section>
                     <h2>Game Structure</h2>
+                </section>
+                <section>
+                    <section>
+                        <h3>Versions</h3>
+                        <p>Has the difficulty changed from version to version?</p>
+                        <div class="chart-div" id="missionsByVersion"></div>
+                    </section>
+                    <section>
+                        <h3>Versions - Timing</h3>
+                        <p>When were users using each version?</p>
+                        <div class="chart-div" id="versionOverlap"></div>
+                    </section>
+                    <section>
+                        <h3>Versions - Level Attempts</h3>
+                        <p>Which levels were users attempting in each version?</p>
+                        <div class="chart-div" id="versionSpread"></div>
+                    </section>
                 </section>
                 <section>
                     <section>
@@ -207,6 +236,165 @@
                                 <td class="numeric-col">0.15</td>
                             </tr>
                         </table>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>Testing Campaign Significance</h3>
+                        <p>From the summary data, we might conclude that users coming from campaigns are more likely to make purchases, however, there could be confounding factors. For example, campaigns could be:</p>
+                        <ul>
+                            <li>Targetting richer countries, and those users are more likely to make purchases</li>
+                            <li>Targetting hardcore gamers who progress further and are therefore more likely to make purchases</li>
+                            <li>Targetting users with specific devices that are more likely to make purchases</li>
+                            <li>Providing users with coin bonuses, which then encourages users to make purchases</li>
+                        </ul>
+                        <p>We can build a model to test this.</p>
+                    </section>
+                    <section>
+                        <h3>Testing Campaign Significance - The Setup</h3>
+                        <p>The model built attempts to account for all these factors, and has the following inputs:</p>
+                        <ul>
+                            <li><strong>Country</strong> - Mean revenue per user from each country</li>
+                            <li><strong>Device</strong> - 4 dummy variables</li>
+                            <li><strong>User skill</strong> - Maximum level reached, percentage of failed missions, percentage of abandoned missions, and total mission events</li>
+                            <li><strong>Coins</strong> - Total coins received and coins used</li>
+                            <li><strong>Campaign</strong> - A simple flag if the user came from a campaign (1) or not (0)</li>
+                        </ul>
+                        <p>We use these data points to create a Logistic Regression Model to that predicts whether a user will make a purchase (1) or not (0).
+                    </section>
+                    <section>
+                        <h3>Testing Campaign Significance - Results</h3>
+                        <img src="./static/img/model_results_coefs.jpg">
+                        <!-- <table>
+                            <tr>
+                                <th>Input</th>
+                                <th class="numeric-col">Coef</th>
+                                <th class="numeric-col">Std Err</th>
+                                <th class="numeric-col">Z</th>
+                                <th class="numeric-col">P>|z|</th>
+                            </tr>
+                            <tr>
+                                <td>IOS</td>
+                                <td class="numeric-col">-5.8217</td>
+                                <td class="numeric-col">0.064</td>
+                                <td class="numeric-col">-91.549</td>
+                                <td class="numeric-col">0.000</td>
+                            </tr>
+                            <tr>
+                                <td>Android</td>
+                                <td class="numeric-col">-6.0753</td>
+                                <td class="numeric-col">0.070</td>
+                                <td class="numeric-col">-86.943</td>
+                                <td class="numeric-col">0.000</td>
+                            </tr>
+                            <tr>
+                                <td>FireOS</td>
+                                <td class="numeric-col">-6.0961</td>
+                                <td class="numeric-col">15,437</td>
+                                <td class="numeric-col">0.15</td>
+                                <td class="numeric-col">0.000</td>
+                            </tr>
+                            <tr>
+                                <td>WebGL</td>
+                                <td class="numeric-col">-71.01</td>
+                                <td class="numeric-col">29,200</td>
+                                <td class="numeric-col">-0.002</td>
+                                <td class="numeric-col">0.998</td>
+                            </tr>
+                            <tr>
+                                <td>Coins Used</td>
+                                <td class="numeric-col">0.0002</td>
+                                <td class="numeric-col">3.16e-05</td>
+                                <td class="numeric-col">6.342</td>
+                                <td class="numeric-col">0.000</td>
+                            </tr>
+                            <tr>
+                                <td>Coins Received</td>
+                                <td class="numeric-col">0.0039</td>
+                                <td class="numeric-col">0.000</td>
+                                <td class="numeric-col">30.608</td>
+                                <td class="numeric-col">0.000</td>
+                            </tr>
+                        </table> -->
+                    </section>
+                    <!-- <section>
+                        <h3>Testing Campaign Significance - Results</h3>
+                        <table>
+                            <tr>
+                                <th>Input</th>
+                                <th class="numeric-col">Coef</th>
+                                <th class="numeric-col">Std Err</th>
+                                <th class="numeric-col">Z</th>
+                                <th class="numeric-col">P>|z|</th>
+                            </tr>
+                            <tr>
+                                <td>Country</td>
+                                <td class="numeric-col">3.1317</td>
+                                <td class="numeric-col">0.137</td>
+                                <td class="numeric-col">22.888</td>
+                                <td class="numeric-col">0.000</td>
+                            </tr>
+                            <tr>
+                                <td>Max Level</td>
+                                <td class="numeric-col"> 0.0136</td>
+                                <td class="numeric-col">15,437</td>
+                                <td class="numeric-col">0.15</td>
+                                <td class="numeric-col">0.000</td>
+                            </tr>
+                            <tr>
+                                <td>Failure %</td>
+                                <td class="numeric-col">3.3974</td>
+                                <td class="numeric-col">0.111</td>
+                                <td class="numeric-col">30.715</td>
+                                <td class="numeric-col">0.000</td>
+                            </tr>
+                            <tr>
+                                <td>Abandoned %</td>
+                                <td class="numeric-col">2.4660</td>
+                                <td class="numeric-col">0.501</td>
+                                <td class="numeric-col">4.927</td>
+                                <td class="numeric-col">0.000</td>
+                            </tr>
+                            <tr>
+                                <td>Mission Events</td>
+                                <td class="numeric-col">-0.0006</td>
+                                <td class="numeric-col">8.5e-05</td>
+                                <td class="numeric-col">-7.492</td>
+                                <td class="numeric-col">0.000</td>
+                            </tr>
+                            <tr style="background-color: #fff793">
+                                <td>Campaign Flag</td>
+                                <td class="numeric-col">0.5100</td>
+                                <td class="numeric-col">0.043</td>
+                                <td class="numeric-col">11.995</td>
+                                <td class="numeric-col">0.000</td>
+                            </tr>
+                        </table>
+                    </section> -->
+                    <section>
+                        <h3>What does this mean?</h3>
+                        <p>What conclusions can we draw from this model?</p>
+                        <ol>
+                            <li><strong>Campaign users are more likely to make purchases</strong> - Even when we take into account differences in country distribution, device type, level progression and coins, however there could be...</li>
+                            <li><strong>Confounding factors</strong> - These results do not rule out the existence of other confounding factors that explain the remaining difference, which is why...</li>
+                            <li><strong>More research is needed</strong> - Identifying all the factors that make campaign users more likely to make purchases can help to target future campaigns.</li>
+                        </ol>
+                    </section>
+                    <section>
+                        <h3>Model Performance</h3>
+                        <p>How accurate was the model?</p>
+                        <div class="chart-div" id="modelResults"></div>
+                    </section>
+                    <section>
+                        <h3>Model Performance</h3>
+                        <img src="./static/img/model_results.png">
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>Campaign Timing</h3>
+                        <p>When did the campaigns have the biggest impact?</p>
+                        <div class="chart-div" id="campaignTiming"></div>
                     </section>
                     <section>
                         <h3>Most Profitable Campaigns</h3>

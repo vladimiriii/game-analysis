@@ -146,11 +146,37 @@ function loadCharts() {
         /*----------------------------------------
         Game Structure
         ----------------------------------------*/
+        // Missions by Version
+        series = [
+            {"name": "Mission Completed", "data": missionStats['version']['Completes'].map(convertToPct)},
+            {"name": "Mission Failed", "data": missionStats['version']['Fails'].map(convertToPct)},
+            {"name": "Mission Abandoned", "data": missionStats['version']['Abandons'].map(convertToPct)}
+        ];
+        drawStackedColumnChart("missionsByVersion", missionStats['version']['Version'], series, "% of Starts", true, pct_format);
+
+        // Version Overlap
+        series = [
+            {"name": "Version 1.1.0", "data": missionStats['versionOverlap']['v1.1.0']},
+            {"name": "Version 1.0.6", "data": missionStats['versionOverlap']['v1.0.6']},
+            {"name": "Version 1.0.5", "data": missionStats['versionOverlap']['v1.0.5']},
+            {"name": "Version 1.0.3", "data": missionStats['versionOverlap']['v1.0.3']},
+            {"name": "Version 1.0.1", "data": missionStats['versionOverlap']['v1.0.1']}
+        ];
+        drawAreaChart("versionOverlap", missionStats['versionOverlap']['Date'], series, "Events", true, int_format);
+
+        // Version Level Spread
+        series = [
+            {"name": "Version 1.0.1", "data": missionStats['versionSpread']['1.0.1'].map(convertToPct)},
+            {"name": "Version 1.0.3", "data": missionStats['versionSpread']['1.0.3'].map(convertToPct)},
+            {"name": "Version 1.0.6", "data": missionStats['versionSpread']['1.0.6'].map(convertToPct)},
+            {"name": "Version 1.1.0", "data": missionStats['versionSpread']['1.1.0'].map(convertToPct)}
+        ];
+        drawLineChart("versionSpread", missionStats['versionSpread']['Levels'], series, "% of events", true, pct_format);
+
         // Hardest Levels
         series = [
             {"name": "Failure Rate", "data": levelStats['hardest']['Failure Rate'].map(convertToPct)}
         ];
-        format = "<b>{series.name}</b>: {point.y:.1f}%";
         drawColumnChart("mostFailed", levelStats['hardest']['Level'], series, "Failure Rate", false, pct_format);
 
         chart = $('#mostFailed').highcharts();
@@ -162,7 +188,6 @@ function loadCharts() {
         series = [
             {"name": "Drop-Off Rate", "data": levelStats['dropoff']['User Drop-off'].map(convertToPct)}
         ];
-        format = "<b>{series.name}</b>: {point.y:.1f}%";
         drawColumnChart("biggestDropOff", levelStats['dropoff']['Level'], series, "Drop-Off Rate", false, pct_format);
 
         chart = $('#biggestDropOff').highcharts();
@@ -175,14 +200,12 @@ function loadCharts() {
         series = [
             {"name": "Users", "data": levelStats['dropOffTop100']['Users']}
         ];
-        format = "<b>{series.name}</b>: {point.y:,.0f}";
         drawLineChart("dropOffByLevel", levelStats['dropOffTop100']['Level'], series, "Users", false, int_format);
 
         // Conversions by Level
         series = [
             {"name": "Users", "data": levelStats['levelRevenue']['Users']}
         ];
-        format = "<b>{series.name}</b>: {point.y:,.0f}";
         drawColumnChart("firstPurchases", levelStats['levelRevenue']['Last Level Attempted'], series, "Users", false, int_format);
 
         chart = $('#firstPurchases').highcharts();
@@ -195,19 +218,38 @@ function loadCharts() {
         series = [
             {"name": "Coin Balance", "data": coinEconomy['Net Balance']}
         ];
-        format = "<b>{series.name}</b>: {point.y:,.0f}";
         drawColumnChart("coinEconomy", coinEconomy['eventDate'], series, "Coins", false, int_format);
 
         /*----------------------------------------
         Marketing
         ----------------------------------------*/
+        // Model Results
+        series = [
+            {"name": "Accuracy", "data": modelResults['Accuracy'].map(convertToPct)},
+            {"name": "Recall", "data": modelResults['Recall'].map(convertToPct)},
+            {"name": "Precision", "data": modelResults['Precision'].map(convertToPct)},
+            {"name": "F1 Score", "data": modelResults['F1 Score'].map(convertToPct)}
+        ];
+        drawLineChart("modelResults", modelResults['Threshold'], series, "Score", true, pct_format);
+
+        // Campaign Timing
+        series = [
+            {"name": "Campaign Users", "data": campaignData['timing']['Campaign Users']},
+            {"name": "Non-Campaign Users", "data": campaignData['timing']['Non-Campaign Users']}
+
+        ];
+        drawAreaChart("campaignTiming", campaignData['timing']['Date'], series, "Users", true, int_format);
+        chart = $('#campaignTiming').highcharts();
+        chart.series[1].hide();
+
         // Top Campaigns
         series = [
             {"name": "Users", "data": campaignData['topCampaigns']['Users']},
             {"name": "Revenue", "data": campaignData['topCampaigns']['Revenue']}
         ];
-        format = "<b>{series.name}</b>: {point.y:,.0f}<br>";
         drawColumnChart("topCampaigns", campaignData['topCampaigns']['Campaign ID'], series, "Revenue/Users", true, int_format);
+
+
 
 };
 
@@ -215,7 +257,7 @@ function convertToPct(x) {
     if (x == null) {
         return null
     } else {
-        return x * 100;
+        return Math.round(x * 10000)/100;
     };
 };
 
